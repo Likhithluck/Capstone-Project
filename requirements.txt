@@ -1,0 +1,9 @@
+opencv-python
+pytesseract
+transformers
+torch
+sentencepiece
+numpy
+pillow
+pandas
+matplotlib
