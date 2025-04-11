@@ -7,7 +7,7 @@ export interface Item {
   
   export interface Invoice {
     id: string;
-    invoice_number: string;
+    Invoice_Number: number;
     date: string;
     bill_to: string;
     ship_to?: string;

@@ -1,39 +1,69 @@
 .invoice-container {
-  max-width: 1200px;
+  max-width: 100%;
   margin: 20px auto;
   padding: 20px;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(to right, #fefefe, #f9f9f9);
+  overflow-x: auto;
 }
 
 h1 {
   text-align: center;
-  color: #333;
-  margin-bottom: 20px;
+  color: #2c3e50;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  font-weight: 600;
 }
 
 .invoice-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 600px;
 }
 
-.invoice-table th, .invoice-table td {
-  padding: 12px;
+.invoice-table th,
+.invoice-table td {
+  padding: 16px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 15px;
 }
 
 .invoice-table th {
-  background-color: #f4f4f4;
-  color: #333;
+  background: #4a90e2;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.invoice-table tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
 .invoice-table tr:hover {
-  background-color: #f1f1f1;
+  background-color: #f1faff;
+  transition: background-color 0.3s ease;
 }
 
 .invoice-table td {
   vertical-align: top;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .invoice-table {
+    font-size: 14px;
+  }
+
+  .invoice-container {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
 }

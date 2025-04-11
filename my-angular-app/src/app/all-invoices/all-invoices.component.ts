@@ -24,7 +24,8 @@ export class AllInvoicesComponent implements OnInit {
   fetchInvoices(): void {
     this.invoiceService.getInvoices().subscribe({
       next: (data) => {
-        this.invoices = data; // Assign fetched data to 'invoices'
+        this.invoices = data;
+        console.log(this.invoices) // Assign fetched data to 'invoices'
         this.errorMessage = ''; // Reset error message on successful fetch
       },
       error: (err) => {
