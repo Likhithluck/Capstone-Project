@@ -1,0 +1,31 @@
+<div class="mat-typography">
+    <!-- Scrollable Navigation Bar -->
+    <div id="subtopnav" class="scroll-nav">
+      <div class="burger-menu">
+        <div class="burger-bar"></div>
+        <div class="burger-bar"></div>
+        <div class="burger-bar"></div>
+      </div>
+    </div>
+  
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" (click)="closeMenu()">&times;</a>
+      <a href="javascript:void(0)" (click)="navigateToAllInvoices()">All Invoices</a>
+      <a href="#">Find Invoice</a>
+      <a href="#">Authentication</a>
+      <a href="#">About</a>
+      <a href="#">pilot</a>
+    </div>
+  
+    <header>
+      <div class="logo">
+        <h1>CKIRIA</h1>
+        <p class="subheading">INVOICE AUTOMATION</p>
+      </div>
+    </header>
+  
+    <!-- Routed components appear here -->
+    <router-outlet></router-outlet>
+  </div>
+  

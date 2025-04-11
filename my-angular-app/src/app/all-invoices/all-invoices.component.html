@@ -1,0 +1,27 @@
+<div class="invoice-container">
+    <h1>All Invoices</h1>
+    
+    <table class="invoice-table">
+      <thead>
+        <tr>
+          <th>Invoice ID</th>
+          <th>Customer Name</th>
+          <th>Date</th>
+          <th>Total Amount</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Replace *ngFor with your actual invoice list -->
+        <tr *ngFor="let invoice of invoices">
+          <td>{{ invoice._id }}</td>
+          <td>{{ invoice.customerName }}</td>
+          <td>{{ invoice.date }}</td>
+          <td>{{ invoice.total }}</td>
+          <td>{{ invoice.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+    
+  </div>
+  
