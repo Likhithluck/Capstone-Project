@@ -1,27 +1,31 @@
 <div class="invoice-container">
-    <h1>All Invoices</h1>
-    
-    <table class="invoice-table">
+  <h1>All Invoices</h1>
+  <table class="invoice-table">
       <thead>
-        <tr>
-          <th>Invoice ID</th>
-          <th>Customer Name</th>
-          <th>Date</th>
-          <th>Total Amount</th>
-          <th>Status</th>
-        </tr>
+          <tr>
+              <th>Invoice Number</th>
+              <th>Date</th>
+              <th>Bill To</th>
+              <th>Ship To</th>
+              <th>Ship Mode</th>
+              <th>Balance Due</th>
+              <th>Total</th>
+              <th>Notes</th>
+              <th>Order ID</th>
+          </tr>
       </thead>
       <tbody>
-        <!-- Replace *ngFor with your actual invoice list -->
-        <tr *ngFor="let invoice of invoices">
-          <td>{{ invoice._id }}</td>
-          <td>{{ invoice.customerName }}</td>
-          <td>{{ invoice.date }}</td>
-          <td>{{ invoice.total }}</td>
-          <td>{{ invoice.status }}</td>
-        </tr>
+          <tr *ngFor="let invoice of invoices">
+              <td>{{ invoice.invoice_number }}</td>
+              <td>{{ invoice.date  }}</td>
+              <td>{{ invoice.bill_to }}</td>
+              <td>{{ invoice.ship_to || 'N/A' }}</td>
+              <td>{{ invoice.ship_mode }}</td>
+              <td>{{ invoice.balance_due  }}</td>
+              <td>{{ invoice.total  }}</td>
+              <td>{{ invoice.notes }}</td>
+              <td>{{ invoice.order_id }}</td>
+          </tr>
       </tbody>
-    </table>
-    
-  </div>
-  
+  </table>
+</div>

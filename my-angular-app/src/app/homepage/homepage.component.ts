@@ -4,7 +4,7 @@ import { Router, RouterOutlet } from '@angular/router';
 
 @Component({
   imports: [CommonModule,RouterOutlet], // Removed unused imports
-  standalone: true, // Marked as standalone component
+  standalone: true, 
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.less'] // Corrected property name

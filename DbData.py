@@ -2,9 +2,19 @@ from fastapi import FastAPI, HTTPException
 from pymongo import MongoClient
 from bson import ObjectId
 from typing import List, Dict
+from fastapi.middleware.cors import CORSMiddleware
 
 # FastAPI application instance
 app = FastAPI()
+
+# CORS configuration to allow all origins
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+)
 
 # MongoDB client connection
 client = MongoClient("mongodb+srv://shalu25kumar:shalu25kumar@cluster0.cny9w3s.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")  # Update with your MongoDB URI
