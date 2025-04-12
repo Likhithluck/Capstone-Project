@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { InvoiceService } from '../invoice.service';
 import { Invoice } from '../../Invoice';
 import { CommonModule } from '@angular/common';
@@ -14,19 +14,28 @@ import { Subject } from 'rxjs';
   templateUrl: './all-invoices.component.html',
   styleUrls: ['./all-invoices.component.less']
 })
-export class AllInvoicesComponent implements OnInit {
+export class AllInvoicesComponent implements OnInit, OnDestroy {
   invoices: Invoice[] = [];
   errorMessage!: string;
   dtOptions: Config={}
   dtTrigger: Subject<any> = new Subject<any>(); // Subject to trigger DataTable reinitialization
+  private destroy$: Subject<void> = new Subject<void>(); // Subject to manage component destruction
   
 
   constructor(private invoiceService: InvoiceService) { }
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+    this.dtTrigger.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.fetchInvoices();
     this.dtOptions = {
       pagingType: 'full_numbers',
+      lengthMenu: [10, 25, 50],
+      language: {
+        searchPlaceholder: 'Search'}
     }
   }
 

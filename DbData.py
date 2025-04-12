@@ -1,5 +1,5 @@
 from sqlite3 import Date
-from fastapi import FastAPI, HTTPException
+from fastapi import Body, FastAPI, HTTPException
 from pymongo import MongoClient
 from bson import ObjectId
 from typing import List, Dict
@@ -103,3 +103,64 @@ async def get_invoice(invoice_id: str):
             raise HTTPException(status_code=404, detail="Invoice not found")
     except Exception:
         raise HTTPException(status_code=400, detail="Invalid ObjectId format")
+
+@app.put("/invoice/{invoice_id}", response_model=Invoice, response_model_by_alias=False)
+async def update_invoice(invoice_id: str, updated_invoice: Invoice):
+    try:
+        # Convert invoice_id to ObjectId
+        invoice_object_id = ObjectId(invoice_id)
+        
+        # Prepare the update data exactly matching MongoDB document structure
+        update_data = {
+            "_id": ObjectId(updated_invoice.id),
+            "Invoice Number": updated_invoice.invoice_number,
+            "Date": updated_invoice.date,
+            "Bill To": updated_invoice.bill_to,
+            "Ship To": updated_invoice.ship_to,
+            "Ship Mode": updated_invoice.ship_mode,
+            "Balance Due": updated_invoice.balance_due,
+            "Items": [{
+                "Item Name": item.item_name,
+                "Quantity": item.quantity,
+                "Unit Price": item.unit_price,
+                "Total Price": item.total_price
+            } for item in updated_invoice.items],
+            "Subtotal": updated_invoice.subtotal,
+            "Discount": updated_invoice.discount,
+            "Shipping": updated_invoice.shipping,
+            "Total": updated_invoice.total,
+            "Notes": updated_invoice.notes,
+            "Order ID": updated_invoice.order_id
+        }
+        
+        # Update the invoice in the database
+        result = collection.update_one(
+            {"_id": invoice_object_id},
+            {"$set": update_data}
+        )
+        
+        if result.modified_count == 1:
+            updated_invoice_data = collection.find_one({"_id": invoice_object_id})
+            return process_invoice_document(updated_invoice_data)
+        else:
+            raise HTTPException(status_code=404, detail="Invoice not found or no changes made")
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.delete("/invoice/{invoice_id}")
+async def delete_invoice(invoice_id: str):
+    try:
+        # Convert invoice_id to ObjectId
+        invoice_object_id = ObjectId(invoice_id)
+        
+        # Delete the invoice from the database
+        result = collection.delete_one({"_id": invoice_object_id})
+        
+        if result.deleted_count == 1:
+            return {"message": "Invoice deleted successfully"}, 204
+        else:
+            raise HTTPException(status_code=404, detail="Invoice not found")
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
