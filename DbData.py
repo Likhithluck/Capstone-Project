@@ -63,10 +63,10 @@ def process_invoice_document(invoice: dict) -> Invoice:
         "Ship Mode": invoice.get("Ship Mode"),
         "Balance Due": invoice.get("Balance Due"),
         "Items": [{
-            "Item Name": item["Item Name"],
-            "Quantity": item["Quantity"],
-            "Unit Price": item["Unit Price"],
-            "Total Price": item["Total Price"]
+            "Item Name": item.get("Item Name", "Unknown"),  # Default value if key is missing
+            "Quantity": item.get("Quantity", 0),  # Default value if key is missing
+            "Unit Price": item.get("Unit Price", 0.0),  # Default value if key is missing
+            "Total Price": item.get("Total Price", 0.0)  # Default value if key is missing
         } for item in invoice.get("Items", [])],
         "Subtotal": invoice.get("Subtotal"),
         "Discount": invoice.get("Discount"),
@@ -104,7 +104,7 @@ async def get_invoice(invoice_id: str):
     except Exception:
         raise HTTPException(status_code=400, detail="Invalid ObjectId format")
 
-@app.put("/invoice/{invoice_id}", response_model=Invoice, response_model_by_alias=False)
+@app.put("/invoices/{invoice_id}", response_model=Invoice, response_model_by_alias=False)
 async def update_invoice(invoice_id: str, updated_invoice: Invoice):
     try:
         # Convert invoice_id to ObjectId
@@ -133,6 +133,8 @@ async def update_invoice(invoice_id: str, updated_invoice: Invoice):
             "Order ID": updated_invoice.order_id
         }
         
+        print(f"\nUpdate data: {update_data}")
+        
         # Update the invoice in the database
         result = collection.update_one(
             {"_id": invoice_object_id},
@@ -149,6 +151,7 @@ async def update_invoice(invoice_id: str, updated_invoice: Invoice):
 
 @app.delete("/invoice/{invoice_id}")
 async def delete_invoice(invoice_id: str):
+    print(invoice_id)
     try:
         # Convert invoice_id to ObjectId
         invoice_object_id = ObjectId(invoice_id)

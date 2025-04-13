@@ -18,18 +18,61 @@
       </thead>
       <tbody>
           <tr *ngFor="let invoice of invoices">
-              <td>{{ invoice.invoice_number }}</td>
-              <td>{{ invoice.date }}</td>
-              <td>{{ invoice.bill_to }}</td>
-              <td>{{ invoice.ship_to || 'N/A' }}</td>
-              <td>{{ invoice.ship_mode }}</td>
-              <td>{{ invoice.balance_due }}</td>
-              <td>{{ invoice.total }}</td>
-              <td>{{ invoice.notes }}</td>
+              <td>{{invoice.invoice_number}}</td>
+              <td>
+                <div *ngIf="invoice.isEditable">
+                  <input type="text" class="form-control" [(ngModel)]="invoice.date">
+                </div>
+                <div *ngIf="!invoice.isEditable">{{ invoice.date }}</div>
+              </td>
+              <td>
+                <div *ngIf="invoice.isEditable">
+                    <input type="text" class="form-control" [(ngModel)]="invoice.bill_to">
+                  </div>
+                  <div *ngIf="!invoice.isEditable">{{ invoice.bill_to}}</div>
+              </td>
+              <td>
+                <div *ngIf="invoice.isEditable">
+                    <input type="text" class="form-control" [(ngModel)]="invoice.ship_to">
+                  </div>
+                  <div *ngIf="!invoice.isEditable">{{ invoice.ship_to || 'N/A'}}</div>
+              </td>
+              <td>
+                <div *ngIf="invoice.isEditable">
+                    <input type="text" class="form-control" [(ngModel)]="invoice.ship_mode">
+                  </div>
+                  <div *ngIf="!invoice.isEditable">{{ invoice.ship_mode }}</div>
+              </td>
+              <td>
+                <div *ngIf="invoice.isEditable">
+                    <input type="text" class="form-control" [(ngModel)]="invoice.balance_due">
+                  </div>
+                  <div *ngIf="!invoice.isEditable">{{ invoice.balance_due }}</div>
+              </td>
+              <td>
+                <div *ngIf="invoice.isEditable">
+                    <input type="text" class="form-control" [(ngModel)]="invoice.total">
+                  </div>
+                  <div *ngIf="!invoice.isEditable">{{ invoice.total }}</div>
+              </td>
+              <td>
+                <div *ngIf="invoice.isEditable">
+                    <input type="text" class="form-control" [(ngModel)]="invoice.notes">
+                  </div>
+                  <div *ngIf="!invoice.isEditable">{{ invoice.notes }}</div>
+              </td>
               <td>{{ invoice.order_id }}</td>
               <td>
-                <i class="fas fa-pencil-alt edit-icon"  title="Edit"></i>
-                <i class="fas fa-trash delete-icon"  title="Delete"></i>
+                <div *ngIf="invoice.isEditable">
+                   
+                    <button class="btn btn-secondary" (click)="onUpdate(invoice)">Update</button>
+                    <button class="btn btn-secondary" (click)="onCancel(invoice)">Cancel</button>
+                </div>
+                <div *ngIf="!invoice.isEditable">
+                    <i class="fas fa-pencil-alt edit-icon" (click)="onEdit(invoice)" title="Edit"></i>
+                    <i class="fas fa-trash delete-icon" (click)="onDelete(invoice)" title="Delete"></i>
+                </div>
+                
             </td>
           </tr>
       </tbody>

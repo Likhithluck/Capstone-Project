@@ -4,6 +4,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { AllInvoicesComponent } from './all-invoices/all-invoices.component'; 
 
 export const routes: Routes = [
+  { path: '', component: HomepageComponent },
   { path: 'home', component: HomepageComponent },
   { path: 'allInvoices', component: AllInvoicesComponent }
  

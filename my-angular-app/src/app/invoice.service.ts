@@ -18,6 +18,18 @@ export class InvoiceService {
     );
   }
 
+  update(id: string, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, data).pipe(
+      catchError(this.handleError),
+      tap(() => console.log('Updated invoice with ID:', id))
+    );
+  }
+
+  delete(id: string): Observable<any> {
+    return this.http.delete(`http://127.0.0.1:8000/invoice/${id}`);
+}
+  
+
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred';
     if (error.error instanceof ErrorEvent) {
