@@ -1,6 +1,7 @@
 import { CommonModule, NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   imports: [CommonModule,RouterOutlet], // Removed unused imports
@@ -10,7 +11,7 @@ import { Router, RouterOutlet } from '@angular/router';
   styleUrls: ['./homepage.component.less'] // Corrected property name
 })
 export class HomepageComponent {
-  constructor(private router: Router) {}  // Inject Router service
+  constructor(private router: Router,public authService: AuthService) {}  // Inject Router service
 
   ngOnInit(): void {
     this.addSidebarEventListener();
@@ -43,5 +44,13 @@ export class HomepageComponent {
   // Function to navigate programmatically
   navigateToAllInvoices() {
     this.router.navigate(['/allInvoices']);  // Navigate to 'all-invoices' route
+  }
+
+  logout(): void {
+    this.authService.logout();
+  }
+
+  login(): void {
+    this.router.navigate(['/login']); 
   }
 }
