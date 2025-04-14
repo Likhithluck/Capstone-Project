@@ -1,6 +1,7 @@
 import { Component, NgModule, OnDestroy, OnInit } from '@angular/core';
 import { InvoiceService } from '../invoice.service';
 import { Invoice, InvoiceBody } from '../../Invoice';
+import { AuthService } from '../auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables'; // Importing DataTables module for Angular
@@ -18,7 +19,15 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AllInvoicesComponent implements OnInit, OnDestroy {
 
-  constructor(private http: HttpClient, private invoiceService: InvoiceService) {}
+  isLoggedIn = false;
+  
+  constructor(
+    private http: HttpClient, 
+    private invoiceService: InvoiceService,
+    private authService: AuthService
+  ) {
+    this.isLoggedIn = this.authService.isLoggedIn();
+  }
 
   private body: InvoiceBody = {
     "_id": '',

@@ -13,7 +13,7 @@
               <th>Total</th>
               <th>Notes</th>
               <th>Order ID</th>
-              <th>Actions</th>
+              <th *ngIf="isLoggedIn">Actions</th>
           </tr>
       </thead>
       <tbody>
@@ -62,7 +62,7 @@
                   <div *ngIf="!invoice.isEditable">{{ invoice.notes }}</div>
               </td>
               <td>{{ invoice.order_id }}</td>
-              <td>
+              <td *ngIf="isLoggedIn">
                 <div *ngIf="invoice.isEditable">
                    
                     <button class="btn btn-secondary" (click)="onUpdate(invoice)">Update</button>
