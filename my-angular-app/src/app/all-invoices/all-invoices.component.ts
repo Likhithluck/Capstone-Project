@@ -8,6 +8,8 @@ import { DataTablesModule } from 'angular-datatables'; // Importing DataTables m
 import { Config } from 'datatables.net';
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { AppComponent } from '../app.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -20,11 +22,13 @@ import { HttpClient } from '@angular/common/http';
 export class AllInvoicesComponent implements OnInit, OnDestroy {
 
   isLoggedIn = false;
+  parseurl!: string;
   
   constructor(
     private http: HttpClient, 
     private invoiceService: InvoiceService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.isLoggedIn = this.authService.isLoggedIn();
   }
@@ -122,10 +126,10 @@ export class AllInvoicesComponent implements OnInit, OnDestroy {
           alert('Invoice updated successfully');
           this.fetchInvoices(); // Refresh the invoice list after update
         } else {
+          this.fetchInvoices(); 
           alert('Invoice updated' );
-          this.fetchInvoices();
-
         }
+        
       },
       error: (err) => {
         console.error('Error updating invoice:', err);
@@ -167,6 +171,11 @@ export class AllInvoicesComponent implements OnInit, OnDestroy {
       alert('Error deleting invoice: ' + error.error.detail);
   });
 
+  }
+
+  login(): void {
+    this.parseurl = this.router.url;
+    this.router.navigate(['/login']);
   }
 
 

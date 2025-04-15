@@ -15,6 +15,7 @@ import { AuthService } from '../auth.service';
 export class LoginComponent {
   loginForm: FormGroup;
   loginError = '';
+  private returnUrl: string = '/';
 
   
 
@@ -43,7 +44,10 @@ export class LoginComponent {
     const { username, password } = this.loginForm.value;
     if (this.authService.login(username, password)) {
       this.loginError = '';
-      this.router.navigate(['/home']); // Redirect to homepage
+      alert('Login successful!');
+      const navigation = this.router.getCurrentNavigation();
+      this.returnUrl = navigation?.extras?.state?.['returnUrl'] || '/';
+      this.router.navigateByUrl(this.returnUrl); // Redirect to homepage
     } else {
       this.loginError = 'Invalid username or password';
     }
