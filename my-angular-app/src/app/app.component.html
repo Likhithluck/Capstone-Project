@@ -1,1 +1,28 @@
-<router-outlet></router-outlet>
+<div class="mat-typography">
+    <!-- Scrollable Navigation Bar -->
+    <div id="subtopnav" class="scroll-nav">
+      <div class="burger-menu">
+        <div class="burger-bar"></div>
+        <div class="burger-bar"></div>
+        <div class="burger-bar"></div>
+      </div>
+    </div>
+  
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+      <a href="javascript:void(0)" (click)="navigattHome()">Home</a>
+      <a href="javascript:void(0)" class="closebtn" (click)="closeMenu()">&times;</a>
+      <a href="javascript:void(0)" (click)="navigateToAllInvoices()">All Invoices</a>
+      <a href="#">Find Invoice</a>
+      <a href="#">Authentication</a>
+      <a href="#">About</a>
+      <a *ngIf="!authService.isLoggedIn()" (click)="login()">Login</a>
+      
+      <div *ngIf="authService.isLoggedIn()" class="logout-container">
+        <button (click)="logout()" class="logout-button">Logout</button>
+      </div>
+      
+    </div>  
+    <!-- Routed components appear here -->
+    <router-outlet></router-outlet>
+  </div>

@@ -8,7 +8,7 @@ export const routes: Routes = [
   { path: '', component: HomepageComponent },
   { path: 'home', component: HomepageComponent },
   { path: 'allInvoices', component: AllInvoicesComponent },
-  { path: 'login', component: LoginComponent }, // Add the login route here
+  { path: 'login', component: LoginComponent }, 
  
 ];
 
