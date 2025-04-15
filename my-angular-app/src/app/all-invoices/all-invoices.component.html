@@ -1,27 +1,80 @@
 <div class="invoice-container">
-    <h1>All Invoices</h1>
-    
-    <table class="invoice-table">
+  <h1>All Invoices</h1>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <table class="invoice-table"  datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
       <thead>
-        <tr>
-          <th>Invoice ID</th>
-          <th>Customer Name</th>
-          <th>Date</th>
-          <th>Total Amount</th>
-          <th>Status</th>
-        </tr>
+          <tr>
+              <th>Invoice Number</th>
+              <th>Date</th>
+              <th>Bill To</th>
+              <th>Ship To</th>
+              <th>Ship Mode</th>
+              <th>Balance Due</th>
+              <th>Total</th>
+              <th>Notes</th>
+              <th>Order ID</th>
+              <th *ngIf="isLoggedIn">Actions</th>
+          </tr>
       </thead>
       <tbody>
-        <!-- Replace *ngFor with your actual invoice list -->
-        <tr *ngFor="let invoice of invoices">
-          <td>{{ invoice._id }}</td>
-          <td>{{ invoice.customerName }}</td>
-          <td>{{ invoice.date }}</td>
-          <td>{{ invoice.total }}</td>
-          <td>{{ invoice.status }}</td>
-        </tr>
+          <tr *ngFor="let invoice of invoices">
+              <td>{{invoice.invoice_number}}</td>
+              <td>
+                <div *ngIf="invoice.isEditable">
+                  <input type="text" class="form-control" [(ngModel)]="invoice.date">
+                </div>
+                <div *ngIf="!invoice.isEditable">{{ invoice.date }}</div>
+              </td>
+              <td>
+                <div *ngIf="invoice.isEditable">
+                    <input type="text" class="form-control" [(ngModel)]="invoice.bill_to">
+                  </div>
+                  <div *ngIf="!invoice.isEditable">{{ invoice.bill_to}}</div>
+              </td>
+              <td>
+                <div *ngIf="invoice.isEditable">
+                    <input type="text" class="form-control" [(ngModel)]="invoice.ship_to">
+                  </div>
+                  <div *ngIf="!invoice.isEditable">{{ invoice.ship_to || 'N/A'}}</div>
+              </td>
+              <td>
+                <div *ngIf="invoice.isEditable">
+                    <input type="text" class="form-control" [(ngModel)]="invoice.ship_mode">
+                  </div>
+                  <div *ngIf="!invoice.isEditable">{{ invoice.ship_mode }}</div>
+              </td>
+              <td>
+                <div *ngIf="invoice.isEditable">
+                    <input type="text" class="form-control" [(ngModel)]="invoice.balance_due">
+                  </div>
+                  <div *ngIf="!invoice.isEditable">{{ invoice.balance_due }}</div>
+              </td>
+              <td>
+                <div *ngIf="invoice.isEditable">
+                    <input type="text" class="form-control" [(ngModel)]="invoice.total">
+                  </div>
+                  <div *ngIf="!invoice.isEditable">{{ invoice.total }}</div>
+              </td>
+              <td>
+                <div *ngIf="invoice.isEditable">
+                    <input type="text" class="form-control" [(ngModel)]="invoice.notes">
+                  </div>
+                  <div *ngIf="!invoice.isEditable">{{ invoice.notes }}</div>
+              </td>
+              <td>{{ invoice.order_id }}</td>
+              <td *ngIf="isLoggedIn">
+                <div *ngIf="invoice.isEditable">
+                   
+                    <button class="btn btn-secondary" (click)="onUpdate(invoice)">Update</button>
+                    <button class="btn btn-secondary" (click)="onCancel(invoice)">Cancel</button>
+                </div>
+                <div *ngIf="!invoice.isEditable">
+                    <i class="fas fa-pencil-alt edit-icon" (click)="onEdit(invoice)" title="Edit"></i>
+                    <i class="fas fa-trash delete-icon" (click)="onDelete(invoice)" title="Delete"></i>
+                </div>
+                
+            </td>
+          </tr>
       </tbody>
-    </table>
-    
-  </div>
-  
+  </table>
+</div>
