@@ -12,8 +12,7 @@
     <div id="sidebar" class="sidebar">
       <a href="javascript:void(0)" (click)="navigattHome()">Home</a>
       <a href="javascript:void(0)" class="closebtn" (click)="closeMenu()">&times;</a>
-      <a href="javascript:void(0)" (click)="navigateToAllInvoices()">All Invoices</a>
-      <a href="#">Find Invoice</a>
+      <a href="javascript:void(0)" (click)="navigateToAllInvoices()">Invoices</a>
       <a href="#">Authentication</a>
       <a href="#">About</a>
       <a *ngIf="!authService.isLoggedIn()" (click)="login()">Login</a>
