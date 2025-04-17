@@ -7,15 +7,18 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   background: linear-gradient(to right, #fefefe, #f9f9f9);
   overflow-x: auto;
+  font-family: 'Poppins', sans-serif;
 }
 
 h1 {
   text-align: center;
-  color: #2c3e50;
+  color: #1847d3;
   margin-bottom: 30px;
-  font-size: 2rem;
+  margin-top: 50px; /* Add space above the heading */
+  font-size: 4rem;
   font-weight: 600;
 }
+
 
 .invoice-table {
   width: 100%;
@@ -28,16 +31,18 @@ h1 {
 .invoice-table td {
   padding: 16px;
   text-align: left;
-  border-bottom: 1px solid #e0e0e0;
   font-size: 15px;
+  border-bottom: 1px solid #1847d3; /* Border for rows */
 }
 
 .invoice-table th {
-  background: #4a90e2;
-  color: white;
+  background-color: #6a5acd; /* Single purple color applied to header */
+  color: #ffffffe8; /* Text color for header */
   position: sticky;
   top: 0;
   z-index: 1;
+  text-align: left;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a shadow to make the header stand out */
 }
 
 .invoice-table tr:nth-child(even) {
@@ -51,7 +56,10 @@ h1 {
 
 .invoice-table td {
   vertical-align: top;
+  background: transparent; /* Ensure no background is applied to table data */
 }
+
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -112,7 +120,7 @@ h1 {
 
 .login-button {
   position: fixed;
-  top: auto;
+  top: 80px; /* Adjust the value as needed to create space below the navbar */
   left: auto;
   right: 20px;
   background-color: #007bff; /* Bootstrap primary color */
