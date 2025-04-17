@@ -15,7 +15,7 @@ margin-top: 0.2em; /* Decrease space above p */
   margin: 0;
   padding: 10px 0;
   line-height: 1;
-  background: linear-gradient(90deg, #3a8dff, #6a5acd); /* Gradient from blue to purple */
+  background: #1dc4e9; /* Gradient from blue to purple */
   -webkit-background-clip: text; /* Clip the gradient to text */
   color: transparent; /* Make the text color transparent to show the gradient */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Optional: adds a slight shadow for depth */
@@ -24,7 +24,7 @@ margin-top: 0.2em; /* Decrease space above p */
 .subheading {
   font-size: 44px;
   font-weight: 400;
-  color: #333; /* Keep subheading as a solid color */
+  color: #135d66; /* Keep subheading as a solid color */
   text-align: center;
   margin: -10px 0 0 0;
   line-height: 1.1;
@@ -45,4 +45,104 @@ margin-top: 0.2em; /* Decrease space above p */
   transform: scale(1.1);
   color: #3a8dff;
 }
+
+.site-footer {
+  background: linear-gradient(90deg, #1de9b6, #1dc4e9);
+  color: white;
+  padding: 30px 0;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  margin: 0 10px;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.footer-copy {
+  margin-top: 10px;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.about-section {
+  background: #f1edede8; /* Light grayish color */
+  padding: 60px 20px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.about-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.about-section h2 {
+  font-size: 2.5rem;
+  background: linear-gradient(90deg, #1de9b6, #1dc4e9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+
+.about-section p {
+  font-size: 1.1rem;
+  color: #444;
+  margin-bottom: 40px;
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.feature-box {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 20px;
+  width: 300px;
+  transition: transform 0.3s ease;
+}
+
+.feature-box:hover {
+  transform: translateY(-5px);
+}
+
+.feature-box i {
+  font-size: 2rem;
+  color: #1dc4e9;
+  margin-bottom: 10px;
+}
+
+.feature-box h3 {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+  color: #1847d3;
+}
+
+.feature-box p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
 

@@ -1,17 +1,37 @@
+<header>
+  <div class="logo">
+    <h1>CKIRIA</h1>
+    <p class="subheading">INVOICE AUTOMATION</p>
+  </div>
+</header>
 
-    <header>
-      <div class="logo">
-        <h1>CKIRIA</h1>
-        <p class="subheading">INVOICE AUTOMATION</p>
-      </div>
-      <div class="invoice-icon-container">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <i class="fas fa-file-invoice"></i>
-      </div>
-      
-    </header>
-  
-    <!-- Routed components appear here -->
-    <router-outlet></router-outlet>
+<!-- Add this inside your main HTML file, preferably below <router-outlet> -->
 
-  
+<section class="about-section">
+  <div class="about-container">
+    <h2>About CKIRIA</h2>
+    <p>
+      CKIRIA is a cutting-edge platform designed to simplify and automate the invoicing process for businesses of all sizes.
+      Our goal is to save time, reduce errors, and empower teams to focus on what truly matters—growing your business.
+    </p>
+    <div class="features">
+      <div class="feature-box">
+        <i class="fas fa-bolt"></i>
+        <h3>Fast Automation</h3>
+        <p>Generate professional invoices in seconds.</p>
+      </div>
+      <div class="feature-box">
+        <i class="fas fa-shield-alt"></i>
+        <h3>Secure & Reliable</h3>
+        <p>Your data is safe with industry-grade encryption.</p>
+      </div>
+      <div class="feature-box">
+        <i class="fas fa-chart-line"></i>
+        <h3>Smart Insights</h3>
+        <p>Track and analyze your billing trends effortlessly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Make sure to include Font Awesome in your index.html if not already added -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" /> 
