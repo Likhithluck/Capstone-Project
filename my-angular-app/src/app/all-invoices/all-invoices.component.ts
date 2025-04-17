@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-all-invoices',
   standalone: true,
-  imports: [CommonModule, DataTablesModule, FormsModule,DataTablesModule],
+  imports: [CommonModule, DataTablesModule, FormsModule],
   templateUrl: './all-invoices.component.html',
   styleUrls: ['./all-invoices.component.less']
 })

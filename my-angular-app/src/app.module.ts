@@ -20,7 +20,7 @@ declarations: [],
     AllInvoicesComponent,
     HomepageComponent,
     AppComponent,
-    DataTablesModule // Adding DataTablesModule
+    DataTablesModule 
   ],
   providers: [],
 })
