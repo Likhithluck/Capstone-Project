@@ -5,23 +5,23 @@ import { HomepageComponent } from './app/homepage/homepage.component';
 import { AllInvoicesComponent } from './app/all-invoices/all-invoices.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { AppRoutingModule } from './app/app-routing.module';
 import { FormsModule } from '@angular/forms';
+import { SInvoicesComponent } from './app/s-invoices/s-invoices.component';
+import { DataTablesModule } from 'angular-datatables'; // Importing DataTablesModule
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomepageComponent,
-    AllInvoicesComponent
-  ],
+declarations: [],
   imports: [
+    SInvoicesComponent,
     BrowserModule,
     HttpClientModule,
     CommonModule,
-    AppRoutingModule,
-    FormsModule
+    FormsModule,
+    AllInvoicesComponent,
+    HomepageComponent,
+    AppComponent,
+    DataTablesModule // Adding DataTablesModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
 })
 export class AppModule { }
