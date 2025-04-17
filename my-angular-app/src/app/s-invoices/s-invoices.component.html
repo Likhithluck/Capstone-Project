@@ -1,0 +1,83 @@
+<div class="invoice-container">
+    <button *ngIf="!isLoggedIn" class="login-button" (click)="login()">Login</button>
+    <h1>INVOICES</h1>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div> <!-- Error message display -->
+  
+    <table class="invoice-table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+        <thead>
+            <tr>
+                <th>Invoice Number</th>
+                <th>DateOfIssue</th>
+                <th>Seller Name</th>
+                <th>Seller Address</th>
+                <th>Seller Tax Id</th>
+                <th>Client Name</th>
+                <th>Client Address</th>
+                <th>Client Tax Id</th>
+                <th>Order ID</th>
+                <th *ngIf="isLoggedIn">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let invoice of invoices">
+                <td>{{invoice.Invoice_Number}}</td>
+                <td>
+                  <div *ngIf="invoice.isEditable">
+                    <input type="text" class="form-control" [(ngModel)]="invoice.DateOfIssue" required>
+                  </div>
+                  <div *ngIf="!invoice.isEditable">{{ invoice.DateOfIssue }}</div>
+                </td>
+                <td>
+                  <div *ngIf="invoice.isEditable">
+                      <input type="text" class="form-control" [(ngModel)]="invoice.SName" required>
+                    </div>
+                    <div *ngIf="!invoice.isEditable">{{ invoice.SName}}</div>
+                </td>
+                <td>
+                  <div *ngIf="invoice.isEditable">
+                      <input type="text" class="form-control" [(ngModel)]="invoice.SAddress" required>
+                    </div>
+                    <div *ngIf="!invoice.isEditable">{{ invoice.SAddress || 'N/A'}}</div>
+                </td>
+                <td>
+                  <div *ngIf="invoice.isEditable">
+                      <input type="text" class="form-control" [(ngModel)]="invoice.STaxId" required>
+                    </div>
+                    <div *ngIf="!invoice.isEditable">{{ invoice.STaxId }}</div>
+                </td>
+                <td>
+                  <div *ngIf="invoice.isEditable">
+                      <input type="text" class="form-control" [(ngModel)]="invoice.Cname" required>
+                    </div>
+                    <div *ngIf="!invoice.isEditable">{{ invoice.Cname }}</div>
+                </td>
+                <td>
+                  <div *ngIf="invoice.isEditable">
+                      <input type="text" class="form-control" [(ngModel)]="invoice.CAddress" required>
+                    </div>
+                    <div *ngIf="!invoice.isEditable">{{ invoice.CAddress }}</div>
+                </td>
+                <td>
+                  <div *ngIf="invoice.isEditable">
+                      <input type="text" class="form-control" [(ngModel)]="invoice.CTaxId" required>
+                    </div>
+                    <div *ngIf="!invoice.isEditable">{{ invoice.CTaxId }}</div>
+                </td>
+                <!--<td>{{ invoice.order_id }}</td>-->
+                <td *ngIf="isLoggedIn">
+                  <div *ngIf="invoice.isEditable">
+                      <button class="btn btn-secondary" (click)="onUpdate(invoice)">Update</button>
+                      <button class="btn btn-secondary" (click)="onCancel(invoice)">Cancel</button>
+                  </div>
+                  <div *ngIf="!invoice.isEditable">
+                      <i class="fas fa-pencil-alt edit-icon" (click)="onEdit(invoice)" title="Edit" aria-label="Edit invoice"></i>
+                      <i class="fas fa-trash delete-icon" (click)="onDelete(invoice)" title="Delete" aria-label="Delete invoice"></i>
+                  </div>
+              </td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+  

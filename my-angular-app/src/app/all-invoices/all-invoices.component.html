@@ -3,7 +3,9 @@
   <h1>INVOICES</h1>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   
-  <table class="invoice-table"  datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div> <!-- Error message display -->
+
+  <table class="invoice-table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
       <thead>
           <tr>
               <th>Invoice Number</th>
@@ -23,58 +25,56 @@
               <td>{{invoice.invoice_number}}</td>
               <td>
                 <div *ngIf="invoice.isEditable">
-                  <input type="text" class="form-control" [(ngModel)]="invoice.date">
+                  <input type="text" class="form-control" [(ngModel)]="invoice.date" required>
                 </div>
                 <div *ngIf="!invoice.isEditable">{{ invoice.date }}</div>
               </td>
               <td>
                 <div *ngIf="invoice.isEditable">
-                    <input type="text" class="form-control" [(ngModel)]="invoice.bill_to">
+                    <input type="text" class="form-control" [(ngModel)]="invoice.bill_to" required>
                   </div>
                   <div *ngIf="!invoice.isEditable">{{ invoice.bill_to}}</div>
               </td>
               <td>
                 <div *ngIf="invoice.isEditable">
-                    <input type="text" class="form-control" [(ngModel)]="invoice.ship_to">
+                    <input type="text" class="form-control" [(ngModel)]="invoice.ship_to" required>
                   </div>
                   <div *ngIf="!invoice.isEditable">{{ invoice.ship_to || 'N/A'}}</div>
               </td>
               <td>
                 <div *ngIf="invoice.isEditable">
-                    <input type="text" class="form-control" [(ngModel)]="invoice.ship_mode">
+                    <input type="text" class="form-control" [(ngModel)]="invoice.ship_mode" required>
                   </div>
                   <div *ngIf="!invoice.isEditable">{{ invoice.ship_mode }}</div>
               </td>
               <td>
                 <div *ngIf="invoice.isEditable">
-                    <input type="text" class="form-control" [(ngModel)]="invoice.balance_due">
+                    <input type="text" class="form-control" [(ngModel)]="invoice.balance_due" required>
                   </div>
                   <div *ngIf="!invoice.isEditable">{{ invoice.balance_due }}</div>
               </td>
               <td>
                 <div *ngIf="invoice.isEditable">
-                    <input type="text" class="form-control" [(ngModel)]="invoice.total">
+                    <input type="text" class="form-control" [(ngModel)]="invoice.total" required>
                   </div>
                   <div *ngIf="!invoice.isEditable">{{ invoice.total }}</div>
               </td>
               <td>
                 <div *ngIf="invoice.isEditable">
-                    <input type="text" class="form-control" [(ngModel)]="invoice.notes">
+                    <input type="text" class="form-control" [(ngModel)]="invoice.notes" required>
                   </div>
                   <div *ngIf="!invoice.isEditable">{{ invoice.notes }}</div>
               </td>
               <td>{{ invoice.order_id }}</td>
               <td *ngIf="isLoggedIn">
                 <div *ngIf="invoice.isEditable">
-                   
                     <button class="btn btn-secondary" (click)="onUpdate(invoice)">Update</button>
                     <button class="btn btn-secondary" (click)="onCancel(invoice)">Cancel</button>
                 </div>
                 <div *ngIf="!invoice.isEditable">
-                    <i class="fas fa-pencil-alt edit-icon" (click)="onEdit(invoice)" title="Edit"></i>
-                    <i class="fas fa-trash delete-icon" (click)="onDelete(invoice)" title="Delete"></i>
+                    <i class="fas fa-pencil-alt edit-icon" (click)="onEdit(invoice)" title="Edit" aria-label="Edit invoice"></i>
+                    <i class="fas fa-trash delete-icon" (click)="onDelete(invoice)" title="Delete" aria-label="Delete invoice"></i>
                 </div>
-                
             </td>
           </tr>
       </tbody>

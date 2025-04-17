@@ -64,3 +64,16 @@ export interface InvoiceBody {
     "Notes": string;              // Match the JSON key exactly
     "Order ID": string;           // Match the JSON key exactly
 }
+
+export interface SInvoiceBody {
+    "_id": string;                // Match the JSON key exactly
+      Invoice_Number: string;
+      DateOfIssue: string;
+      SName: string;
+      SAddress: string;
+      STaxId: string;
+      Cname: string;
+      CAddress: string;
+      CTaxId: string;
+      isEditable: boolean; // New property to track editability
+  }
