@@ -1,0 +1,133 @@
+.invoice-container {
+    max-width: 100%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to right, #fefefe, #f9f9f9);
+    overflow-x: auto;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #1847d3;
+    margin-bottom: 30px;
+    margin-top: 50px; /* Add space above the heading */
+    font-size: 4rem;
+    font-weight: 600;
+  }
+  
+  
+  .invoice-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 600px;
+  }
+  
+  .invoice-table th,
+  .invoice-table td {
+    padding: 16px;
+    text-align: left;
+    font-size: 15px;
+    border-bottom: 1px solid #1847d3; /* Border for rows */
+  }
+  
+  .invoice-table th {
+    background-color: #6a5acd; /* Single purple color applied to header */
+    color: #ffffffe8; /* Text color for header */
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    text-align: left;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a shadow to make the header stand out */
+  }
+  
+  .invoice-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .invoice-table tr:hover {
+    background-color: #f1faff;
+    transition: background-color 0.3s ease;
+  }
+  
+  .invoice-table td {
+    vertical-align: top;
+    background: transparent; /* Ensure no background is applied to table data */
+  }
+  
+  
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .invoice-table {
+      font-size: 20px;
+    }
+  
+    .invoice-container {
+      padding: 15px;
+    }
+  
+    h1 {
+      font-size: 2.5rem;
+    }
+  }
+  
+  
+  .edit-icon, .delete-icon {
+    font-size: 18px;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: color 0.3s;
+  }
+  
+  .edit-icon {
+    color: #2196F3;
+  }
+  
+  .delete-icon {
+    color: #f44336;
+  }
+  
+  .edit-icon:hover {
+    color: #1976D2;
+  }
+  
+  .delete-icon:hover {
+    color: #d32f2f;
+  }
+  
+  #saveButton {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .save-icon {
+    margin-right: 5px; /* Space between icon and text */
+  }
+  
+  .login-button {
+    position: fixed;
+    top: 80px; /* Adjust the value as needed to create space below the navbar */
+    left: auto;
+    right: 20px;
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+    border: none;
+    padding: 12px 24px; /* Increased button size */
+    font-size: 16px; /* Adjusted font size */
+    border-radius: 5px; /* Optional: rounded corners */
+  }
+  

@@ -47,9 +47,14 @@ export class AppComponent {
     navigateToAllInvoices() {
       this.router.navigate(['/allInvoices']);  // Navigate to 'all-invoices' route
     }
+
+    navigateToSInvoices() {
+      this.router.navigate(['/sInvoice']);  // Navigate to 's-invoices' route
+    }
   
     logout(): void {
       this.authService.logout();
+      this.router.navigate(['/home']); 
     }
   
     login(): void {
