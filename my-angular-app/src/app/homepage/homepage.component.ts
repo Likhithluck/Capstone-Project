@@ -4,7 +4,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
-  imports: [CommonModule,RouterOutlet], // Removed unused imports
+  imports: [CommonModule], // Removed unused imports
   standalone: true, 
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
