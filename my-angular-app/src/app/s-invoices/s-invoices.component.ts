@@ -19,6 +19,7 @@ export class SInvoicesComponent implements OnInit, OnDestroy  {
 
   isLoggedIn = false;
   parseurl!: string;
+  body: SInvoiceBody = {} as SInvoiceBody;
   
   constructor(
     private http: HttpClient, 
@@ -53,7 +54,7 @@ export class SInvoicesComponent implements OnInit, OnDestroy  {
   }
 
   fetchInvoices(): void {
-    this.http.get<SInvoiceBody[]>('API_ENDPOINT_HERE') // Replace with actual API endpoint
+    this.http.get<SInvoiceBody[]>('http://127.0.0.1:8000/sinvoices') // Call the backend GET /sinvoices endpoint
       .subscribe(
         (data) => {
           this.invoices = data;
@@ -73,11 +74,47 @@ export class SInvoicesComponent implements OnInit, OnDestroy  {
   }
 
   onUpdate(invoice: SInvoiceBody) {
-    // Update logic here
+      this.body.Invoice_Number= invoice.Invoice_Number;
+      this.body.DateOfIssue=invoice.DateOfIssue;
+      this.body.SName= invoice.SName;
+      this.body.SAddress= invoice.SAddress;
+      this.body.STaxId= invoice.STaxId;
+      this.body.Cname= invoice.Cname;
+      this.body.CAddress= invoice.CAddress;
+      this.body.CTaxId= invoice.CTaxId;
+      this.body.Networth= invoice.Networth;
+      this.body.Grossworth= invoice.Grossworth;
+
+      this.http.put<SInvoiceBody>(`http://127.0.0.1:8000/sinvoices/${invoice._id}`, this.body)
+        .subscribe(
+          (updatedInvoice) => {
+            // Update the local invoices array with updated data
+            const index = this.invoices.findIndex(inv => inv._id === updatedInvoice._id);
+            if (index !== -1) {
+              this.invoices[index] = updatedInvoice;
+            }
+            invoice.isEditable = false;
+          },
+          (error) => {
+            this.errorMessage = 'Error updating invoice';
+          }
+        );
   }
 
   onCancel(invoice: SInvoiceBody) {
-    // Logic to revert changes if needed
+    
+    invoice.Invoice_Number = this.oldEditingInvoice.Invoice_Number;
+    invoice.DateOfIssue = this.oldEditingInvoice.DateOfIssue;
+    invoice.SName = this.oldEditingInvoice.SName;
+    invoice.SAddress = this.oldEditingInvoice.SAddress;
+    invoice.STaxId = this.oldEditingInvoice.STaxId;
+    invoice.Cname = this.oldEditingInvoice.Cname;
+    invoice.CAddress = this.oldEditingInvoice.CAddress;
+    invoice.CTaxId = this.oldEditingInvoice.CTaxId;
+    invoice.Networth = this.oldEditingInvoice.Networth;
+    invoice.Grossworth = this.oldEditingInvoice.Grossworth;
+    invoice.isEditable = false;
+
   }
 
   onDelete(invoice: SInvoiceBody) {

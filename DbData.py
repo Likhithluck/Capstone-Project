@@ -20,6 +20,98 @@ app.add_middleware(
 )
 
 
+class DbDataSchema(BaseModel):
+    id: Optional[str] = Field(None, alias="_id")    
+    Invoice_Number: str
+    DateOfIssue: str
+    SName: str
+    SAddress: str
+    STaxId: str
+    Cname: str
+    CAddress: str
+    CTaxId: str
+    Networth: Optional[str] = ""
+    Grossworth: Optional[str] = ""
+
+
+# Mock data for DbDataSchema
+mock_db_data = DbDataSchema(
+    Invoice_Number="INV-1001",
+    DateOfIssue="2024-06-01",
+    SName="Supplier Inc.",
+    SAddress="123 Supplier St, Supplier City",
+    STaxId="SUPP-TAX-12345",
+    Cname="Customer LLC",
+    CAddress="456 Customer Rd, Customer City",
+    CTaxId="CUST-TAX-67890",
+    Networth="10",
+    Grossworth="20"
+)
+
+# List of mock data for DbDataSchema
+mock_db_data_list = [
+    DbDataSchema(
+        Invoice_Number="INV-1001",
+        DateOfIssue="2024-06-01",
+        SName="Supplier Inc.",
+        SAddress="123 Supplier St, Supplier City",
+        STaxId="SUPP-TAX-12345",
+        Cname="Customer LLC",
+        CAddress="456 Customer Rd, Customer City",
+        CTaxId="CUST-TAX-67890",
+        Networth="10",
+        Grossworth="20"
+    ),
+    DbDataSchema(
+        Invoice_Number="INV-1002",
+        DateOfIssue="2024-06-02",
+        SName="Acme Supplies",
+        SAddress="789 Acme Blvd, Acme City",
+        STaxId="ACME-TAX-54321",
+        Cname="Retail Corp",
+        CAddress="321 Retail Ave, Retail City",
+        CTaxId="RETAIL-TAX-09876",
+        Networth="10",
+        Grossworth="20"
+    ),
+    DbDataSchema(
+        Invoice_Number="INV-1003",
+        DateOfIssue="2024-06-03",
+        SName="Global Traders",
+        SAddress="456 Global Rd, Global City",
+        STaxId="GLOBAL-TAX-11223",
+        Cname="Wholesale Ltd",
+        CAddress="654 Wholesale St, Wholesale City",
+        CTaxId="WHOLESALE-TAX-33445",
+        Networth="10",
+        Grossworth="20"
+    ),
+    DbDataSchema(
+        Invoice_Number="INV-1004",
+        DateOfIssue="2024-06-04",
+        SName="Tech Supplies",
+        SAddress="321 Tech Park, Tech City",
+        STaxId="TECH-TAX-66778",
+        Cname="Innovate LLC",
+        CAddress="987 Innovate Dr, Innovate City",
+        CTaxId="INNOVATE-TAX-88990",
+        Networth="10",
+        Grossworth="20"
+    ),
+    DbDataSchema(
+        Invoice_Number="INV-1005",
+        DateOfIssue="2024-06-05",
+        SName="Office Essentials",
+        SAddress="159 Office Ln, Office City",
+        STaxId="OFFICE-TAX-44556",
+        Cname="Business Corp",
+        CAddress="753 Business Rd, Business City",
+        CTaxId="BUSINESS-TAX-22334",
+        Networth="10",
+        Grossworth="20"
+    )
+]
+
 class Item(BaseModel):
     item_name: str = Field(..., alias="Item Name")
     quantity: int = Field(..., alias="Quantity")
@@ -50,6 +142,7 @@ class Invoice(BaseModel):
 client = MongoClient("mongodb+srv://shalu25kumar:shalu25kumar@cluster0.cny9w3s.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")  # Update with your MongoDB URI
 db = client['sk']  # Replace with your database name
 collection = db['sk25']  # Replace with your collection name
+scollection = db['lj07']  # Replace with your collection name
 
 def process_invoice_document(invoice: dict) -> Invoice:
 
@@ -149,21 +242,42 @@ async def update_invoice(invoice_id: str, updated_invoice: Invoice):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-@app.delete("/invoice/{invoice_id}")
-async def delete_invoice(invoice_id: str):
-    print(invoice_id)
+
+
+@app.get("/sinvoices", response_model=List[DbDataSchema])
+async def sInvoices():
+    invoices = list(scollection.find())
+    result = []
+    for invoice in invoices:
+        invoice["_id"] = str(invoice["_id"])
+        # Ensure Networth and Grossworth are strings, default to empty string if None
+        invoice["Networth"] = invoice.get("Networth") or ""
+        invoice["Grossworth"] = invoice.get("Grossworth") or ""
+        result.append(DbDataSchema(**invoice))
+    return result
+
+
+@app.put("/sinvoices/{invoice_id}", response_model=DbDataSchema)
+async def update_sInvoice(invoice_id: str, updated_data: DbDataSchema):
     try:
-        # Convert invoice_id to ObjectId
-        invoice_object_id = ObjectId(invoice_id)
-        
-        # Delete the invoice from the database
-        result = collection.delete_one({"_id": invoice_object_id})
-        
-        if result.deleted_count == 1:
-            return {"message": "Invoice deleted successfully"}, 204
-        else:
-            raise HTTPException(status_code=404, detail="Invoice not found")
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
-
-
+        obj_id = ObjectId(invoice_id)
+    except Exception:
+        raise HTTPException(status_code=400, detail="Invalid ObjectId format")
+    
+    existing_doc = scollection.find_one({"_id": obj_id})
+    if not existing_doc:
+        raise HTTPException(status_code=404, detail="Invoice not found")
+    
+    update_dict = updated_data.dict(exclude_unset=True, by_alias=True)
+    if "_id" in update_dict:
+        update_dict.pop("_id")
+    
+    result = scollection.update_one({"_id": obj_id}, {"$set": update_dict})
+    if result.modified_count == 1:
+        updated_doc = scollection.find_one({"_id": obj_id})
+        updated_doc["_id"] = str(updated_doc["_id"])
+        updated_doc["Networth"] = updated_doc.get("Networth") or ""
+        updated_doc["Grossworth"] = updated_doc.get("Grossworth") or ""
+        return DbDataSchema(**updated_doc)
+    else:
+        raise HTTPException(status_code=400, detail="Update failed or no changes made")
