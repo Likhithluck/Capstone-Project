@@ -4,6 +4,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { AllInvoicesComponent } from './all-invoices/all-invoices.component'; 
 import { LoginComponent } from './login/login.component';
 import { SInvoicesComponent } from './s-invoices/s-invoices.component';
+import { UploadComponent } from './upload/upload.component';
 
 export const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -11,6 +12,7 @@ export const routes: Routes = [
   { path: 'allInvoices', component: AllInvoicesComponent },
   { path: 'sInvoice', component: SInvoicesComponent },
   { path: 'login', component: LoginComponent },
+  { path:'upload', component: UploadComponent },
   {path: '**', redirectTo: '', pathMatch: 'full' } 
 
  
