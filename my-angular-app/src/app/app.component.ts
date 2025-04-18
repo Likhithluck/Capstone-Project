@@ -64,4 +64,9 @@ export class AppComponent {
     navigattHome(): void {
       this.router.navigate(['/home']); 
     }
+    navigateUpload(): void{
+      this.router.navigate(['/upload'])
+    }  
   }
+  
+
