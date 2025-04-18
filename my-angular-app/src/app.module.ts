@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SInvoicesComponent } from './app/s-invoices/s-invoices.component';
 import { DataTablesModule } from 'angular-datatables'; // Importing DataTablesModule
+import { UploadComponent } from './app/upload/upload.component';
 
 @NgModule({
 declarations: [],
@@ -20,7 +21,8 @@ declarations: [],
     AllInvoicesComponent,
     HomepageComponent,
     AppComponent,
-    DataTablesModule 
+    DataTablesModule ,
+    UploadComponent
   ],
   providers: [],
 })
