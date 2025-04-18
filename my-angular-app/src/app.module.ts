@@ -22,8 +22,9 @@ declarations: [],
     HomepageComponent,
     AppComponent,
     DataTablesModule ,
-    UploadComponent
+    UploadComponent // <-- Add this line
   ],
   providers: [],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
