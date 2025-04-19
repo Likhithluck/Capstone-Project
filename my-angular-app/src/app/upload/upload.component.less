@@ -41,7 +41,7 @@
 .steps-wrapper {
     display: flex;
     align-items: center;
-    gap: 20px; /* Adjusted gap */
+    gap: 60px; /* Adjusted gap */
     margin-bottom: 40px;
     flex-wrap: wrap;
     justify-content: center;
@@ -55,12 +55,14 @@
     padding: 20px; /* Adjusted padding */
     flex: 1 0 auto; /* Distribute space, but allow wrapping */
     text-align: center;
-    transition: transform 0.2s ease;
+    transition: transform 4.2s ease, opacity 4.2s ease;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 180px; /* Reduced min-height */
+    min-height: 280px;
+    min-width: 100px; /* Reduced min-height */
+    opacity: 0.6;
 }
 
 .step-container.active {
@@ -73,44 +75,47 @@
 }
 
 .step-icon {
-    font-size: 28px; /* Slightly smaller icon */
+    font-size: 100px; /* Slightly smaller icon */
     color: #1de9b6;
     margin-bottom: 10px;
 }
 
 .step-label {
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 30px;
+    font-weight: 300;
     color: #374151;
     word-break: break-word; /* Prevent long labels from overflowing */
+    font-family: 'Poppins', sans-serif;
 }
 
 /* Arrow between steps */
 .step-arrow {
-    font-size: 20px; /* Slightly smaller arrow */
+    font-size: 60px; /* Slightly smaller arrow */
     color: #94a3b8;
 }
 
 /* Upload Container */
 .upload-wrapper {
-    width: 95%; /* Take up most of the width */
+    width: 55%;
     background: #ffffff;
     border-radius: 16px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-    padding: 24px; /* Adjusted padding */
+    padding: 24px;
     position: relative;
-    margin-top: 80px; /* Adjusted margin-top */
-}
+    margin-top: 0; /* remove this */
+  }
+  
 
-.upload-wrapper:before {
-    content: '';
-    display: block;
-    height: 8px;
-    width: 60px;
-    background: #e5e7eb;
-    border-radius: 9999px;
-    margin: 0 auto 16px auto; /* Adjusted margin */
-}
+  .upload-wrapper {
+    width: 55%;
+    margin: 10px auto 0 auto; /* top margin + horizontal center */
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    padding: 44px;
+    position: relative;
+  }
+  
 
 /* Upload Header */
 .upload-header {
@@ -119,7 +124,7 @@
 }
 
 .upload-header h1 {
-    font-size: 24px; /* Slightly smaller heading */
+    font-size: 34px; /* Slightly smaller heading */
     background: linear-gradient(90deg, #1de9b6, #1dc4e9);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -127,7 +132,7 @@
 }
 
 .upload-header p {
-    font-size: 12px;
+    font-size: 22px;
     color: #555;
     margin-top: 6px;
 }
@@ -199,7 +204,8 @@
 .upload-success {
     text-align: center;
     margin-top: 20px;
-    font-size: 16px;
+    font-size: 36px;
     color: #10b981;
     font-weight: bold;
 }
+
