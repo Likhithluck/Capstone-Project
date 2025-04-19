@@ -120,22 +120,26 @@ export class AllInvoicesComponent implements OnInit, OnDestroy {
       }))
     };
 
-    this.http.put(`http://127.0.0.1:8000/invoices/${this.body._id}`, this.body).subscribe({
-      next: (res: any) => {
-        if (res.result) {
-          alert('Invoice updated successfully');
-          this.fetchInvoices(); // Refresh the invoice list after update
+    this.http.put(`http://127.0.0.1:8000/invoices/${this.body._id}`, this.body, { observe: 'response' })
+    .subscribe(
+      (response) => {
+        const status = response.status;
+  
+        if (status === 200 || status === 204) {
+          alert('Invoice updated successfully!');
+          invoice.isEditable = false; 
         } else {
-          this.fetchInvoices(); 
-          alert('Invoice updated' );
+          this.errorMessage = `Unexpected response: ${status}`;
         }
-        
       },
-      error: (err) => {
-        console.error('Error updating invoice:', err);
-        alert('Error updating invoice: ' + err.message);
+      (error) => {
+        if (error.status === 404) {
+          this.errorMessage = 'Invoice not found';
+        } else {
+          this.errorMessage = 'Error updating invoice';
+        }
       }
-    });
+    );
 }
 
 

@@ -92,15 +92,8 @@ export class SInvoicesComponent implements OnInit, OnDestroy  {
           const status = response.status;
     
           if (status === 200 || status === 204) {
-            this.fetchInvoices();  // Fetch new data
-            invoice.isEditable = false;
-    
-            // Delay reinitialization to let DOM update
-            setTimeout(() => {
-              const table = $('#DataTables_Table_1').DataTable();
-              table.destroy();  // 👈 Destroy existing instance
-              $('#DataTables_Table_1').DataTable();  // 👈 Reinitialize it
-            }, 100); 
+            alert('Invoice updated successfully!');
+            invoice.isEditable = false; 
           } else {
             this.errorMessage = `Unexpected response: ${status}`;
           }
