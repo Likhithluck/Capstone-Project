@@ -74,6 +74,7 @@ export class SInvoicesComponent implements OnInit, OnDestroy  {
   }
 
   onUpdate(invoice: SInvoiceBody) {
+      this.body._id= invoice._id;
       this.body.Invoice_Number= invoice.Invoice_Number;
       this.body.DateOfIssue=invoice.DateOfIssue;
       this.body.SName= invoice.SName;
@@ -85,21 +86,50 @@ export class SInvoicesComponent implements OnInit, OnDestroy  {
       this.body.Networth= invoice.Networth;
       this.body.Grossworth= invoice.Grossworth;
 
-      this.http.put<SInvoiceBody>(`http://127.0.0.1:8000/sinvoices/${invoice._id}`, this.body)
-        .subscribe(
-          (updatedInvoice) => {
-            // Update the local invoices array with updated data
-            const index = this.invoices.findIndex(inv => inv._id === updatedInvoice._id);
-            if (index !== -1) {
-              this.invoices[index] = updatedInvoice;
-            }
+      this.http.put(`http://127.0.0.1:8000/sinvoices/${invoice._id}`, this.body, { observe: 'response' })
+      .subscribe(
+        (response) => {
+          const status = response.status;
+    
+          if (status === 200 || status === 204) {
+            this.fetchInvoices();  // Fetch new data
             invoice.isEditable = false;
-          },
-          (error) => {
+    
+            // Delay reinitialization to let DOM update
+            setTimeout(() => {
+              const table = $('#DataTables_Table_1').DataTable();
+              table.destroy();  // 👈 Destroy existing instance
+              $('#DataTables_Table_1').DataTable();  // 👈 Reinitialize it
+            }, 100); 
+          } else {
+            this.errorMessage = `Unexpected response: ${status}`;
+          }
+        },
+        (error) => {
+          if (error.status === 404) {
+            this.errorMessage = 'Invoice not found';
+          } else {
             this.errorMessage = 'Error updating invoice';
           }
-        );
+        }
+      );
+    
   }
+
+  initializeDataTable() {
+    const tableId = '#DataTables_Table_2';
+  
+    // Check if DataTable already exists
+    if ($.fn.DataTable.isDataTable(tableId)) {
+      $(tableId).DataTable().destroy();
+    }
+  
+    // Reinitialize DataTable
+    setTimeout(() => {
+      $(tableId).DataTable();
+    }, 0); // wait for Angular to render updated DOM
+  }
+  
 
   onCancel(invoice: SInvoiceBody) {
     
@@ -118,7 +148,19 @@ export class SInvoicesComponent implements OnInit, OnDestroy  {
   }
 
   onDelete(invoice: SInvoiceBody) {
-    // Delete logic here
+    if (confirm('Are you sure you want to delete this invoice?')) {
+      return this.http.delete(`http://127.0.0.1:8000/sinvoice/${invoice._id}`).subscribe(
+        () => {
+          this.fetchInvoices(); // Refresh the list after deletion
+        },
+        (error) => {
+          this.errorMessage = 'Error deleting invoice';
+        }
+      );
+    } else {
+      // User cancelled the deletion
+      return;
+    }
   }
 
   login(): void {
