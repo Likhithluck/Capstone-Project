@@ -1,12 +1,27 @@
-body, html {
+/* src/styles.css */
+
+html, body {
   height: 100%;
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif;
-  background-color: #f1edede8;
-  overflow: hidden; /* Removes scroll */
+  background: linear-gradient(to bottom, #ffffffe8, #f1edede8, #d6cbcbe8) !important;
+  background-attachment: fixed;
 }
 
+app-root {
+  display: block;
+  min-height: 100vh;
+}
+
+:host {
+  display: block;
+  height: 100vh;
+  background: linear-gradient(to bottom, #ffffffe8, #f1edede8, #d6cbcbe8);
+}
+
+
+/* Login Container */
 .login-container {
   width: 100%;
   max-width: 400px;
