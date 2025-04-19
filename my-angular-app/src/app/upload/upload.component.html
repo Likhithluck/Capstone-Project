@@ -1,25 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Upload Workflow</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <style>
-    /* Responsive */
-    @media (max-width: 600px) {
-      .steps-wrapper { flex-direction: column; gap: 24px; }
-      .step-container { min-width: auto; }
-      .upload-wrapper { padding: 28px 20px; }
-      .upload-header h1 { font-size: 22px; }
-    }
-  </style>
-</head>
-<body>
+<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Upload Workflow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    
 
-  <div class="steps-wrapper">
-    <div class="step-container">
+<div class="steps-wrapper">
+    <div class="step-container active">
       <div class="step-icon"><i class="fas fa-upload"></i></div>
       <div class="step-label">Upload</div>
     </div>
@@ -34,29 +21,20 @@
       <div class="step-label">Storing</div>
     </div>
   </div>
+  
   <div class="upload-wrapper">
     <div class="upload-header">
       <h1>Upload Your File</h1>
     </div>
     <div class="upload-box">
-      <form>
-        <input type="file" id="file" class="file-input" required>
+      <form (submit)="onSubmit($event)">
+        <input type="file" id="file" class="file-input" (change)="onFileChange($event)" required>
         <label for="file" class="file-label">+</label>
-        <span class="file-name">No file chosen</span>
+        <span class="file-name">{{ fileName }}</span>
         <button type="submit" class="upload-btn">Upload</button>
       </form>
     </div>
+    <div *ngIf="uploadSuccess" class="upload-success">
+      File uploaded successfully!
+    </div>
   </div>
-
-  <script>
-    const fileInput = document.getElementById('file');
-    const fileNameSpan = document.querySelector('.file-name');
-    fileInput.addEventListener('change', () => {
-      const name = fileInput.files.length
-        ? fileInput.files[0].name
-        : 'No file chosen';
-      fileNameSpan.textContent = name;
-    });
-  </script>
-</body>
-</html>

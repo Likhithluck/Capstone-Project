@@ -1,171 +1,170 @@
-
-
 :host {
-    background-color:#f1edede8;
-    display: block;
-    height: 100%;
-    width: 100%;
-    }
-    
-  body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-    
-    h1, .subheading {
-      margin: 0;
-    }
-    
-    /* Header Styling */
-    .logo {
-      display: block;
-      font-size: 40px;
-      margin: 0 auto;
-      padding: 20px 0;
-      text-align: center;
-    }
-    
-    /* Scrollable Navigation Bar */
-    html, body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', sans-serif;
+  background-color: #f1edede8;
+  display: block;
+  height: 100%;
+  width: 100%;
 }
 
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
-
-/* Navigation Bar - Updated */
+/* Scrollable Navigation Bar */
 .scroll-nav {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background: linear-gradient(90deg, #1de9b6, #1dc4e9);
- /* Gradient from blue to purple */
-  overflow: hidden;
-  white-space: nowrap;
-  padding: 12px 0;
+  padding: 12px 20px;
   margin: 0;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* subtle shadow */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box; /* ✅ ensures padding doesn't overflow */
+  overflow: hidden; /* ✅ prevent content spill */
 }
 
 
+/* Burger Menu */
+.burger-menu {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
 
+.burger-bar {
+  width: 30px;
+  height: 4px;
+  background-color: white;
+  margin: 5px 0;
+  transition: transform 0.3s ease;
+}
 
-/* Nav Links */
-.scroll-nav a {
+/* Exit Button */
+.exit-btn {
+  background: linear-gradient(to right, #6a5acd, #8a2be2);
+  /* Turquoise gradient */
+  border: none;
   color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 550;
+  font-size: 19px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.exit-btn:hover {
+  background: linear-gradient(to right, #7a3ee0, #594bbd);
+ /* Reverse gradient */
+  transform: scale(1.05); /* Slight scale effect */
+}
+
+/* Sidebar Styles */
+.sidebar {
+  height: 100%;
+  width: 0; /* Hidden by default */
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  background: linear-gradient(90deg, #1de9b6, #1dc4e9); /* Gradient from blue to purple */
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Close Button */
+.sidebar .closebtn {
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 36px;
+  color: white;
+  cursor: pointer;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  height: 100%;
+  width: 0; /* Hidden by default */
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  background: linear-gradient(90deg, #1de9b6, #1dc4e9); /* Gradient from blue to purple */
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+.sidebar a {
+  padding: 8px 10px 8px 30px;
   text-decoration: none;
-  padding: 10px 15px;
-  font-size: 1.1em;
-  margin-right: 15px;
-  display: inline-block;
-  transition: background-color 0.3s, color 0.3s;
+  font-size: 1.6em;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  display: block;
+  transition: 0.3s;
 }
 
-.scroll-nav a:hover {
-  background-color: #ff6f61;
-  border-radius: 15px;
-  color: #fff;
+.sidebar a:hover {
+  background: linear-gradient(90deg, #00bcd4, #009688);
+
 }
+  /* Close Button */
+  .sidebar .closebtn {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 36px;
+    color: white;
+    cursor: pointer;
+  }
 
-    
-    /* Burger Menu */
-    .burger-menu {
-      display: flex;
-      flex-direction: column;
-      cursor: pointer;
-      margin-left: 20px;
-    }
-    
-    .burger-bar {
-      width: 30px;
-      height: 4px;
-      background-color: white;
-      margin: 5px 0;
-      transition: transform 0.3s ease;
-    }
-    
-    /* Sidebar Styles */
-    .sidebar {
-      height: 100%;
-      width: 0; /* Hidden by default */
-      position: fixed;
-      z-index: 1000;
-      top: 0;
-      left: 0;
-      background: linear-gradient(90deg, #1de9b6, #1dc4e9); /* Gradient from blue to purple */
-      overflow-x: hidden;
-      transition: 0.5s;
-      padding-top: 60px;
-      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-    }
-    
-    
-    .sidebar a {
-      padding: 8px 10px 8px 30px;
-      text-decoration: none;
-      font-size: 1.6em;
-      font-family: 'Poppins', sans-serif;
-      color: white;
-      display: block;
-      transition: 0.3s;
-    }
-    
-    .sidebar a:hover {
-      background: linear-gradient(90deg, #00bcd4, #009688);
-
-    }
-    
-    /* Close Button */
-    .sidebar .closebtn {
-      position: absolute;
-      top: 10px;
-      right: 25px;
-      font-size: 36px;
-      color: white;
-      cursor: pointer;
-    }
-    
-    /* Animating Burger Menu */
-    .burger-menu.open .burger-bar:nth-child(1) {
-      transform: rotate(45deg) translateY(9px);
-    }
-    
-    .burger-menu.open .burger-bar:nth-child(2) {
-      opacity: 0;
-    }
-    
-    .burger-menu.open .burger-bar:nth-child(3) {
-      transform: rotate(-45deg) translateY(-9px);
-    }
-    
-    /* Scroll Buttons */
-    .scroll-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      cursor: pointer;
-      font-size: 1.5em;
-      font-family: 'Poppins', sans-serif;
-      color: white;
-      background-color: transparent;
-      border: none;
-      z-index: 200;
-    }
-    
-    .scroll-left-btn {
-      left: 10px;
-    }
-    
-    .scroll-right-btn {
-      right: 10px;
-    }
-    
+  /* Animating Burger Menu */
+  .burger-menu.open .burger-bar:nth-child(1) {
+    transform: rotate(45deg) translateY(9px);
+  }
+  
+  .burger-menu.open .burger-bar:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .burger-menu.open .burger-bar:nth-child(3) {
+    transform: rotate(-45deg) translateY(-9px);
+  }
+  /* Scroll Buttons */
+  .scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1.5em;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    background-color: transparent;
+    border: none;
+    z-index: 200;
+  }
+  .exit-container {
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 5em;
+    font-family: 'Poppins', sans-serif;
+    z-index: 999;
+  }
+  
     /* Responsive Design */
     @media screen and (max-width: 768px) {
       .scroll-nav a {
@@ -180,83 +179,14 @@
       .sidebar {
         width: 0;
       }
-    
+  
       .burger-bar {
         width: 30px;
         height: 4px;
         background-color: white;
         margin: 5px 0;
       }
-    
-      /* Sidebar styling for smaller screens */
-      .sidebar a {
-        font-size: 1em;
-      }
     }
-    
-    /* Angular Material Table Styles */
-    table.mat-elevation-z8 {
-      width: 100%;
-      margin-top: 20px;
-    }
-    
-    .mat-header-row, .mat-row {
-      text-align: left;
-    }
-    
-    .mat-paginator {
-      margin-top: 20px;
-      text-align: right;
-    }
-    
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-    }
-    
-    #subtopnav,
-    #sidebar,
-    header {
-      display: block;
-    }
-    
-    .router-outlet-wrapper {
-      display: none;
-    }
-    
-    router-outlet {
-      display: block;
-    }
-  
-    
+
  
-    .logout-container {
-      position: fixed;
-      bottom: 20px;
-      width: 100%;
-      display: flex;
-      justify-content: flex-start;
-      padding-left: 5em;
-      font-family: 'Poppins', sans-serif;
-      z-index: 999;
-    }
     
-    .logout-button {
-      padding: 10px 20px;
-      background: linear-gradient(90deg, #f44336, #d32f2f);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-family: 'Poppins', sans-serif;
-      cursor: pointer;
-      transition: background 0.3s ease, transform 0.2s ease;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-    
-    .logout-button:hover {
-      background: linear-gradient(90deg, #d32f2f, #c62828);
-      transform: translateY(-2px);
-    }
-    
-  

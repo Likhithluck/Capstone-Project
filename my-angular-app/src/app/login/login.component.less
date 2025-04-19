@@ -1,15 +1,31 @@
-body, html {
+/* src/styles.css */
+
+html, body {
   height: 100%;
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif;
-  background-color: #f1edede8;
-  overflow: hidden; /* Removes scroll */
+  background: linear-gradient(to bottom, #ffffffe8, #f1edede8, #d6cbcbe8) !important;
+  background-attachment: fixed;
 }
 
+app-root {
+  display: block;
+  min-height: 100vh;
+}
+
+:host {
+  display: block;
+  height: 100vh;
+  background: linear-gradient(to bottom, #ffffffe8, #f1edede8, #d6cbcbe8);
+}
+
+
+/* Login Container */
 .login-container {
   width: 100%;
   max-width: 400px;
+  font-family: 'Poppins', sans-serif;
   background-color: #ffffff;
   padding: 2rem 2.5rem;
   border-radius: 12px;
@@ -23,6 +39,7 @@ body, html {
 .login-container h2 {
   text-align: center;
   margin-bottom: 1.5rem;
+  font-family: 'Poppins', sans-serif;
   color: #1dc4e9;
 }
 
@@ -33,6 +50,7 @@ body, html {
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
+  font-family: 'Poppins', sans-serif;
   color: #333;
   font-weight: 500;
 }
@@ -75,7 +93,8 @@ body, html {
 }
 
 .btn:hover {
-  background: linear-gradient(90deg, #1dc4e9, #1de9b6);
+  background: linear-gradient(to right, #6a5acd, #8a2be2);
+
 }
 
 .btn:disabled {

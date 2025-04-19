@@ -1,12 +1,17 @@
-<div class="mat-typography">
-    <!-- Scrollable Navigation Bar -->
-    <div id="subtopnav" class="scroll-nav">
-      <div class="burger-menu">
-        <div class="burger-bar"></div>
-        <div class="burger-bar"></div>
-        <div class="burger-bar"></div>
+    <div class="mat-typography">
+      <!-- Scrollable Navigation Bar -->
+      <div id="subtopnav" class="scroll-nav">
+        <!-- Left: Burger -->
+        <div class="burger-menu">
+          <span class="burger-bar"></span>
+          <span class="burger-bar"></span>
+          <span class="burger-bar"></span>
+        </div>
+        <!-- Right: Exit -->
+        <button *ngIf="!authService.isLoggedIn()" class="exit-btn" (click)="login()">Sign In</button>
+        <button *ngIf="authService.isLoggedIn()" class="exit-btn" (click)="logout()">Sign Out</button>
       </div>
-    </div>
+     
     <!-- Sidebar -->
     <div id="sidebar" class="sidebar">
       <a href="javascript:void(0)" (click)="navigattHome()">Home</a>
@@ -14,12 +19,9 @@
       <a href="javascript:void(0)" (click)="navigateUpload()">Upload</a>
       <a href="javascript:void(0)" (click)="navigateToAllInvoices()">Invoices</a>
       <a href="javascript:void(0)" (click)="navigateToSInvoices()">S Invoices</a>
-      <a href="#">About</a>
-      <a *ngIf="!authService.isLoggedIn()" (click)="login()">Login</a>
+      <!-- <a *ngIf="!authService.isLoggedIn()" (click)="login()">Loginwait</a> -->
       
-      <div *ngIf="authService.isLoggedIn()" class="logout-container">
-        <button (click)="logout()" class="logout-button">Logout</button>
-      </div>
+      
       
     </div>  
     <!-- Routed components appear here -->
