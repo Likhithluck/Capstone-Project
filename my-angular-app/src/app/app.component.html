@@ -9,6 +9,7 @@
         </div>
         <!-- Right: Exit -->
         <button *ngIf="!authService.isLoggedIn()" class="exit-btn" (click)="login()">Sign In</button>
+        <button *ngIf="authService.isLoggedIn()" class="exit-btn" (click)="logout()">Sign Out</button>
       </div>
      
     <!-- Sidebar -->
