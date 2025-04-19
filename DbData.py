@@ -20,6 +20,21 @@ app.add_middleware(
 )
 
 
+class DbDataSchema(BaseModel):
+    id: Optional[str] = Field(None, alias="_id")    
+    Invoice_Number: str
+    DateOfIssue: str
+    SName: str
+    SAddress: str
+    STaxId: str
+    Cname: str
+    CAddress: str
+    CTaxId: str
+    Networth: Optional[str] = ""
+    Grossworth: Optional[str] = ""
+
+
+
 class Item(BaseModel):
     item_name: str = Field(..., alias="Item Name")
     quantity: int = Field(..., alias="Quantity")
@@ -48,9 +63,9 @@ class Invoice(BaseModel):
 
 # MongoDB client connection
 client = MongoClient("mongodb+srv://shalu25kumar:shalu25kumar@cluster0.cny9w3s.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")  # Update with your MongoDB URI
-db = client['sk']  # Replace with your database name
-collection = db['sk25']  # Replace with your collection name
-
+db = client['sk']  
+collection = db['sk25']  
+scollection = db['lj07']  #likhith dataa
 def process_invoice_document(invoice: dict) -> Invoice:
 
     
@@ -149,9 +164,11 @@ async def update_invoice(invoice_id: str, updated_invoice: Invoice):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
+
+
 @app.delete("/invoice/{invoice_id}")
 async def delete_invoice(invoice_id: str):
-    print(invoice_id)
+
     try:
         # Convert invoice_id to ObjectId
         invoice_object_id = ObjectId(invoice_id)
@@ -165,5 +182,61 @@ async def delete_invoice(invoice_id: str):
             raise HTTPException(status_code=404, detail="Invoice not found")
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+ 
+
+@app.get("/sinvoices", response_model=List[DbDataSchema])
+async def sInvoices():
+    invoices = list(scollection.find())
+    result = []
+    for invoice in invoices:
+        invoice["_id"] = str(invoice["_id"])
+        # Ensure Networth and Grossworth are strings, default to empty string if None
+        invoice["Networth"] = invoice.get("Networth") or ""
+        invoice["Grossworth"] = invoice.get("Grossworth") or ""
+        result.append(DbDataSchema(**invoice))
+    return result
 
 
+@app.put("/sinvoices/{invoice_id}", response_model=DbDataSchema)
+async def update_sInvoice(invoice_id: str, updated_data: DbDataSchema):
+    try:
+        obj_id = ObjectId(invoice_id)
+    except Exception:
+        raise HTTPException(status_code=400, detail="Invalid ObjectId format")
+    
+    existing_doc = scollection.find_one({"_id": obj_id})
+    if not existing_doc:
+        raise HTTPException(status_code=404, detail="Invoice not found")
+    
+    update_dict = updated_data.dict(exclude_unset=True, by_alias=True)
+    if "_id" in update_dict:
+        update_dict.pop("_id")
+    
+    result = scollection.update_one({"_id": obj_id}, {"$set": update_dict})
+    if result.modified_count == 1:
+        updated_doc = scollection.find_one({"_id": obj_id})
+        updated_doc["_id"] = str(updated_doc["_id"])
+        updated_doc["Networth"] = updated_doc.get("Networth") or ""
+        updated_doc["Grossworth"] = updated_doc.get("Grossworth") or ""
+        return DbDataSchema(**updated_doc)
+    else:
+        raise HTTPException(status_code=400, detail="Update failed or no changes made")
+
+
+
+@app.delete("/sinvoice/{invoice_id}")
+async def delete_invoice(invoice_id: str):
+
+    try:
+        # Convert invoice_id to ObjectId
+        invoice_object_id = ObjectId(invoice_id)
+        
+        # Delete the invoice from the database
+        result = scollection.delete_one({"_id": invoice_object_id})
+        
+        if result.deleted_count == 1:
+            return {"message": "Invoice deleted successfully"}, 204
+        else:
+            raise HTTPException(status_code=404, detail="Invoice not found")
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
