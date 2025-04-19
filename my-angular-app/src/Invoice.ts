@@ -76,4 +76,6 @@ export interface SInvoiceBody {
       CAddress: string;
       CTaxId: string;
       isEditable: boolean; // New property to track editability
+      Networth:string;
+      Grossworth:string;
   }

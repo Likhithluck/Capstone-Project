@@ -15,7 +15,8 @@
                 <th>Client Name</th>
                 <th>Client Address</th>
                 <th>Client Tax Id</th>
-                <th>Order ID</th>
+                <th>Net Worth</th>
+                <th>Grossworth</th>
                 <th *ngIf="isLoggedIn">Actions</th>
             </tr>
         </thead>
@@ -63,6 +64,18 @@
                       <input type="text" class="form-control" [(ngModel)]="invoice.CTaxId" required>
                     </div>
                     <div *ngIf="!invoice.isEditable">{{ invoice.CTaxId }}</div>
+                </td>
+                <td>
+                  <div *ngIf="invoice.isEditable">
+                      <input type="text" class="form-control" [(ngModel)]="invoice.Networth" required>
+                    </div>
+                    <div *ngIf="!invoice.isEditable">{{ invoice.Networth }}</div>
+                </td>
+                <td>
+                  <div *ngIf="invoice.isEditable">
+                      <input type="text" class="form-control" [(ngModel)]="invoice.Grossworth" required>
+                    </div>
+                    <div *ngIf="!invoice.isEditable">{{ invoice.Grossworth }}</div>
                 </td>
                 <!--<td>{{ invoice.order_id }}</td>-->
                 <td *ngIf="isLoggedIn">
