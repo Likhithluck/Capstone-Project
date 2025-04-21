@@ -67,6 +67,9 @@ export class AppComponent {
     navigateUpload(): void{
       this.router.navigate(['/upload'])
     }  
+    navigatetoSearch(): void{
+      this.router.navigate(['/search'])
+    }
   }
   
 

@@ -5,6 +5,7 @@ import { AllInvoicesComponent } from './all-invoices/all-invoices.component';
 import { LoginComponent } from './login/login.component';
 import { SInvoicesComponent } from './s-invoices/s-invoices.component';
 import { UploadComponent } from './upload/upload.component';
+import { AdSearchComponent } from './ad-search/ad-search.component';
 
 export const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -13,7 +14,9 @@ export const routes: Routes = [
   { path: 'sInvoice', component: SInvoicesComponent },
   { path: 'login', component: LoginComponent },
   {path :'upload' ,component: UploadComponent},
-  {path: '**', redirectTo: '', pathMatch: 'full' } 
+  {path:'search', component: AdSearchComponent},
+  {path: '**', redirectTo: '', pathMatch: 'full' }
+
 
  
 ];
