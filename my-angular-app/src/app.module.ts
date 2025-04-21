@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { SInvoicesComponent } from './app/s-invoices/s-invoices.component';
 import { DataTablesModule } from 'angular-datatables'; // Importing DataTablesModule
 import { UploadComponent } from './app/upload/upload.component';
+import { AdSearchComponent } from './app/ad-search/ad-search.component';
 
 @NgModule({
 declarations: [],
@@ -22,7 +23,8 @@ declarations: [],
     HomepageComponent,
     AppComponent,
     DataTablesModule ,
-    UploadComponent // <-- Add this line
+    UploadComponent,
+    AdSearchComponent // <-- Add this line
   ],
   providers: [],
   bootstrap: [AppComponent]
