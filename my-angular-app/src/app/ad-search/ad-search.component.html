@@ -1,43 +1,64 @@
 <div class="adsearch-wrapper">
   <div class="adsearch-sidebar">
     <h2>Search Filters</h2>
-    <form>
-      <label for="invoice-id">Invoice ID</label>
-      <input type="text" id="invoice-id" placeholder="Enter invoice ID" />
+    <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+      <label for="invoice_number">Invoice Number</label>
+      <input type="text" id="invoice_number" placeholder="Enter invoice number" formControlName="invoice_number" />
 
-      <label for="date-start">Start Date</label>
-      <input type="date" id="date-start" />
-
-      <label for="bill-to">Bill To</label>
-      <input type="text" id="bill-to" placeholder="Enter bill to name" />
+      <label for="bill_to">Bill To</label>
+      <input type="text" id="bill_to" placeholder="Enter bill to name" formControlName="bill_to" />
       
-      <label for="ship-to">Ship To</label>
-      <input type="text" id="ship-to" placeholder="Enter ship to address" />
+      <label for="ship_to">Ship To</label>
+      <input type="text" id="ship_to" placeholder="Enter ship to address" formControlName="ship_to" />
       
-      <label for="ship-mode">Ship Mode</label>
-      <input type="text" id="ship-mode" placeholder="Enter shipping mode" />
+      <label for="ship_mode">Ship Mode</label>
+      <input type="text" id="ship_mode" placeholder="Enter shipping mode" formControlName="ship_mode" />
       
-      <label for="balance-due">Balance Due</label>
-      <input type="text" id="balance-due" placeholder="Enter balance due" />
+      <label for="start_date">Start Date</label>
+      <input type="date" id="start_date" formControlName="start_date" />
       
-      <label for="total">Total</label>
-      <input type="text" id="total" placeholder="Enter total amount" />
+      <label for="end_date">End Date</label>
+      <input type="date" id="end_date" formControlName="end_date" />
       
-      <label for="notes">Notes</label>
-      <input type="text" id="notes" placeholder="Enter notes" />
+      <label for="min_total">Min Total</label>
+      <input type="number" id="min_total" placeholder="Enter minimum total" formControlName="min_total" />
       
-      <label for="order-id">Order ID</label>
-      <input type="text" id="order-id" placeholder="Enter order ID" />
-      
+      <label for="max_total">Max Total</label>
+      <input type="number" id="max_total" placeholder="Enter maximum total" formControlName="max_total" />
       
       <button type="submit">Search</button>
+      <button type="button" (click)="onReset()">Reset</button>
     </form>
   </div>
 
   <div class="adsearch-content">
     <h2>Invoice Results</h2>
-    <div class="invoice-table-placeholder">
-      <p>No results yet. Use filters to find invoices.</p>
+    <div *ngIf="searchResults && searchResults.length > 0; else noResults">
+      <table>
+        <thead>
+          <tr>
+            <th>Invoice Number</th>
+            <th>Date</th>
+            <th>Bill To</th>
+            <th>Ship To</th>
+            <th>Ship Mode</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let invoice of searchResults">
+            <td>{{ invoice.invoice_number }}</td>
+            <td>{{ invoice.date }}</td>
+            <td>{{ invoice.bill_to }}</td>
+            <td>{{ invoice.ship_to }}</td>
+            <td>{{ invoice.ship_mode }}</td>
+            <td>{{ invoice.total }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+    <ng-template #noResults>
+      <p>No results yet. Use filters to find invoices.</p>
+    </ng-template>
   </div>
 </div>

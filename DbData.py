@@ -240,3 +240,99 @@ async def delete_invoice(invoice_id: str):
             raise HTTPException(status_code=404, detail="Invoice not found")
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+    
+from fastapi import Query
+from datetime import datetime
+
+@app.get("/invoices/search", response_model=List[Invoice], response_model_by_alias=False)
+async def search_invoices(
+    invoice_number: Optional[str] = Query(None),
+    bill_to: Optional[str] = Query(None),
+    ship_to: Optional[str] = Query(None),
+    ship_mode: Optional[str] = Query(None),
+    start_date: Optional[str] = Query(None),  # Expected format: YYYY-MM-DD
+    end_date: Optional[str] = Query(None),
+    min_total: Optional[float] = Query(None),
+    max_total: Optional[float] = Query(None)
+):
+    filters = {}
+
+    if invoice_number:
+        filters["Invoice Number"] = {"$regex": invoice_number, "$options": "i"}
+
+    if bill_to:
+        filters["Bill To"] = {"$regex": bill_to, "$options": "i"}
+
+    if ship_to:
+        filters["Ship To"] = {"$regex": ship_to, "$options": "i"}
+
+    if ship_mode:
+        filters["Ship Mode"] = {"$regex": ship_mode, "$options": "i"}
+
+    date_filter = {}
+    if start_date:
+        try:
+            start_dt = datetime.strptime(start_date, "%Y-%m-%d")
+            date_filter["$gte"] = start_dt
+        except ValueError:
+            raise HTTPException(status_code=400, detail="Invalid start_date format, expected YYYY-MM-DD")
+    if end_date:
+        try:
+            end_dt = datetime.strptime(end_date, "%Y-%m-%d")
+            date_filter["$lte"] = end_dt
+        except ValueError:
+            raise HTTPException(status_code=400, detail="Invalid end_date format, expected YYYY-MM-DD")
+
+    total_filter = {}
+    if min_total is not None:
+        total_filter["$gte"] = min_total
+    if max_total is not None:
+        total_filter["$lte"] = max_total
+
+    if date_filter or total_filter:
+        # Convert date strings in DB to datetime objects for comparison
+        all_docs = list(collection.find())
+        filtered_docs = []
+        for doc in all_docs:
+            # Date filtering
+            doc_date_str = doc.get("Date", "")
+            try:
+                doc_date = datetime.strptime(doc_date_str, "%Y-%m-%d")
+                date_ok = True
+                if "$gte" in date_filter and doc_date < date_filter["$gte"]:
+                    date_ok = False
+                if "$lte" in date_filter and doc_date > date_filter["$lte"]:
+                    date_ok = False
+            except ValueError:
+                date_ok = False
+
+            # Total filtering
+            doc_total = doc.get("Total", None)
+            total_ok = True
+            if doc_total is None:
+                total_ok = False
+            else:
+                if "$gte" in total_filter and doc_total < total_filter["$gte"]:
+                    total_ok = False
+                if "$lte" in total_filter and doc_total > total_filter["$lte"]:
+                    total_ok = False
+
+            if date_ok and total_ok:
+                filtered_docs.append(doc)
+
+        # Apply remaining filters manually
+        result = []
+        for doc in filtered_docs:
+            match = True
+            for key, condition in filters.items():
+                value = doc.get(key, "")
+                if not isinstance(value, str) or not condition["$regex"].lower() in value.lower():
+                    match = False
+                    break
+            if match:
+                result.append(process_invoice_document(doc))
+        return result
+
+    # If no date or total range, apply basic filters directly
+    invoices = list(collection.find(filters))
+    return [process_invoice_document(invoice) for invoice in invoices]

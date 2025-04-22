@@ -31,6 +31,7 @@ html, body {
     font-weight: 600;
     background: linear-gradient(to right, #3f51b5, #2196f3); 
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
@@ -104,4 +105,32 @@ html, body {
     color: #6b7280;
     font-size: 16px;
     text-align: center;
+  }
+
+  .adsearch-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+  }
+  
+  .adsearch-content th, .adsearch-content td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .adsearch-content th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  .adsearch-content tr:nth-child(even) {
+    background-color: #fafafa;
+  }
+  
+  .adsearch-content tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
   }
