@@ -1,5 +1,5 @@
 <div class="invoice-container">
-    <h1>INVOICES</h1>
+    <h1>IMAGE-INVOICE</h1>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div> <!-- Error message display -->
@@ -8,7 +8,7 @@
         <thead>
             <tr>
                 <th>Invoice Number</th>
-                <th>DateOfIssue</th>
+                <th>Date Of Issue</th>
                 <th>Seller Name</th>
                 <th>Seller Address</th>
                 <th>Seller Tax Id</th>
@@ -16,7 +16,7 @@
                 <th>Client Address</th>
                 <th>Client Tax Id</th>
                 <th>Net Worth</th>
-                <th>Grossworth</th>
+                <th>Gross Worth</th>
                 <th *ngIf="isLoggedIn">Actions</th>
             </tr>
         </thead>
