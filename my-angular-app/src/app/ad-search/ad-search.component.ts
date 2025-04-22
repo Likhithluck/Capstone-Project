@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 export class AdSearchComponent {
   searchForm: FormGroup;
   searchResults: any[] = [];
+  loading: boolean = false;
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.searchForm = this.fb.group({
@@ -29,48 +30,39 @@ export class AdSearchComponent {
   }
 
   onSearch(): void {
+    this.loading = true;
     let params = new HttpParams();
     const formValue = this.searchForm.value;
 
-    if (formValue.invoice_number) {
-      params = params.set('invoice_number', formValue.invoice_number);
-    }
-    if (formValue.bill_to) {
-      params = params.set('bill_to', formValue.bill_to);
-    }
-    if (formValue.ship_to) {
-      params = params.set('ship_to', formValue.ship_to);
-    }
-    if (formValue.ship_mode) {
-      params = params.set('ship_mode', formValue.ship_mode);
-    }
-    if (formValue.start_date) {
-      params = params.set('start_date', formValue.start_date);
-    }
-    if (formValue.end_date) {
-      params = params.set('end_date', formValue.end_date);
-    }
-    if (formValue.min_total) {
-      params = params.set('min_total', formValue.min_total);
-    }
-    if (formValue.max_total) {
-      params = params.set('max_total', formValue.max_total);
-    }
+    if (formValue.invoice_number) params = params.set('invoice_number', formValue.invoice_number);
+    if (formValue.bill_to) params = params.set('bill_to', formValue.bill_to);
+    if (formValue.ship_to) params = params.set('ship_to', formValue.ship_to);
+    if (formValue.ship_mode) params = params.set('ship_mode', formValue.ship_mode);
+    if (formValue.start_date) params = params.set('start_date', formValue.start_date);
+    if (formValue.end_date) params = params.set('end_date', formValue.end_date);
+    if (formValue.min_total) params = params.set('min_total', formValue.min_total);
+    if (formValue.max_total) params = params.set('max_total', formValue.max_total);
 
     this.http.get<any[]>('http://localhost:8000/invoices/search', { params })
       .subscribe(
         (data) => {
           this.searchResults = data;
+          this.loading = false;
         },
         (error) => {
           console.error('Error fetching search results:', error);
           this.searchResults = [];
+          this.loading = false;
         }
       );
   }
 
   onReset(): void {
+    this.loading = true;
     this.searchForm.reset();
-    this.searchResults = [];
+    setTimeout(() => {
+      this.searchResults = [];
+      this.loading = false;
+    }, 1000); // Simulate a short reset delay
   }
 }
